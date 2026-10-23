@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Il Presente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single study column under a tabbed masthead; verb tables use the singular|plural two-column grid so irregular "boot" shapes show at a glance. */
+:root{
+  --bg:#F6F7F3; --surface:#FFFFFF; --sunk:#ECEFE8; --fg:#1B2622; --muted:#5D6B65; --line:#D5DBD3;
+  --accent:#1E5A48; --accent-ink:#FFFFFF; --accent-soft:#DCEBE4;
+  --end:#B7790A; --end-soft:#FBF0D6;
+  --good:#2C7A4B; --good-soft:#E1F2E7; --warn:#9A6A00; --warn-soft:#FBF1D9; --bad:#B2382B; --bad-soft:#F8E3E0;
+  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0F1614; --surface:#16201D; --sunk:#1C2824; --fg:#E4ECE8; --muted:#97A7A0; --line:#2B3A35;
+  --accent:#6CC0A0; --accent-ink:#0C1412; --accent-soft:#1D3A31;
+  --end:#EDB948; --end-soft:#3A2F15;
+  --good:#6CCB8E; --good-soft:#18352A; --warn:#E6BB55; --warn-soft:#3A3016; --bad:#F08A7C; --bad-soft:#3E1F1B;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0F1614; --surface:#16201D; --sunk:#1C2824; --fg:#E4ECE8; --muted:#97A7A0; --line:#2B3A35;
+  --accent:#6CC0A0; --accent-ink:#0C1412; --accent-soft:#1D3A31;
+  --end:#EDB948; --end-soft:#3A2F15;
+  --good:#6CCB8E; --good-soft:#18352A; --warn:#E6BB55; --warn-soft:#3A3016; --bad:#F08A7C; --bad-soft:#3E1F1B;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:clamp(16px,4vw,32px);padding-block:0 64px}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;line-height:1.15;margin:0}
+h2{font-size:clamp(1.6rem,3.4vw,2.1rem)}
+h3{font-size:1.3rem}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.label{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+
+/* masthead */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.top .wrap{padding-block:14px 0;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 24px}
+.brand{display:flex;align-items:baseline;gap:12px;padding-bottom:12px}
+.brand h1{font-size:2rem;font-weight:700;letter-spacing:-.01em}
+.brand h1 i{font-weight:500;color:var(--accent)}
+.brand span{color:var(--muted);font-size:.9rem}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs button{background:none;border:0;padding:10px 14px 12px;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;font-weight:700}
+nav.tabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+nav.tabs button:hover{color:var(--fg)}
+section.view{padding-top:28px}
+
+/* learn */
+.learn{display:grid;gap:40px;max-width:760px}
+.lesson{display:grid;gap:14px}
+.lesson > p, .lesson li{max-width:65ch}
+.lesson ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
+.kicker{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.intro{font-size:1.12rem;max-width:62ch}
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{padding:9px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.pr{color:var(--muted);white-space:nowrap}
+.e{color:var(--end);font-weight:700}
+.irr{color:var(--accent);font-weight:700;text-decoration:underline dotted;text-underline-offset:3px}
+.rp{color:var(--muted)}
+.callout{background:var(--sunk);border-radius:var(--r);padding:14px 16px;display:grid;gap:6px}
+.callout b{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.ex{display:grid;gap:6px}
+.ex div{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.ex .it{font-weight:700}
+.ex .en{color:var(--muted)}
+.cta{justify-self:start}
+
+/* boot grid */
+.grid2{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.cell{padding:10px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:baseline;min-width:0}
+.cell:nth-child(odd){border-right:1px solid var(--line)}
+.cell:nth-last-child(-n+2){border-bottom:0}
+.cell .who{font-family:var(--mono);font-size:.75rem;color:var(--muted);white-space:nowrap}
+.cell .f{font-size:1.1rem;overflow-wrap:anywhere}
+.cell.boot{background:var(--accent-soft)}
+.cell.hit{box-shadow:inset 0 0 0 2px var(--end)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.85rem;color:var(--muted)}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+/* chips & buttons */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:.9rem}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn{border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);border-radius:8px;padding:10px 18px;font-weight:700;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.5;cursor:default}
+.icon{border:1px solid var(--line);background:var(--surface);border-radius:999px;width:34px;height:34px;display:inline-grid;place-items:center;cursor:pointer;flex:none;color:var(--accent)}
+.icon svg{width:16px;height:16px}
+.tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);border-radius:4px;padding:1px 6px;color:var(--muted);white-space:nowrap}
+
+/* verbs */
+.verbs{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:28px;align-items:start}
+.vlist{display:grid;gap:12px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)}
+#vsearch{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.vitems{max-height:62vh;overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.vitem{display:grid;grid-template-columns:1fr auto;gap:2px 10px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:9px 12px;cursor:pointer}
+.vitem:last-child{border-bottom:0}
+.vitem[aria-current="true"]{background:var(--accent-soft)}
+.vitem b{font-size:1rem}
+.vitem small{color:var(--muted);grid-column:1}
+.vitem .m{grid-row:1/3;grid-column:2;align-self:center}
+.meter{display:inline-flex;gap:2px}
+.meter i{width:6px;height:14px;border-radius:2px;background:var(--line)}
+.meter i.on{background:var(--good)}
+.vdetail{display:grid;gap:18px;min-width:0}
+.vhead{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline}
+.vhead h2{font-size:2.4rem}
+.vhead .en{font-size:1.1rem;color:var(--muted)}
+
+/* phrases */
+.scene{display:grid;gap:12px;margin-bottom:36px}
+.phrase{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--line)}
+.phrase .it{font-size:1.08rem}
+.phrase .it mark{background:var(--end-soft);color:var(--fg);border-radius:3px;padding:0 2px;font-weight:700}
+.phrase .en{color:var(--muted);grid-column:2}
+
+/* practice */
+.prac{display:grid;gap:18px;max-width:760px}
+.controls{display:grid;gap:10px}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.mode{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:10px 12px;text-align:left;cursor:pointer;display:grid;gap:2px}
+.mode b{font-size:.95rem}
+.mode small{color:var(--muted);font-size:.8rem;line-height:1.3}
+.mode[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft)}
+.tally{display:flex;gap:18px;font-family:var(--mono);font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.tally b{color:var(--fg);font-weight:500}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:clamp(18px,4vw,28px);display:grid;gap:18px}
+.prompt{display:grid;gap:8px}
+.big{font-family:var(--display);font-size:clamp(1.5rem,4.4vw,2.1rem);line-height:1.25;text-wrap:balance}
+.big .who{color:var(--accent)}
+.gap{display:inline-block;min-width:5ch;border-bottom:2px solid var(--end);color:var(--end)}
+.answer{display:flex;gap:8px;flex-wrap:wrap}
+.answer input,.answer textarea{flex:1 1 240px;min-width:0;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-size:1.1rem}
+.answer textarea{min-height:88px;resize:vertical}
+.accents{display:flex;gap:4px;flex-wrap:wrap}
+.accents button{border:1px solid var(--line);background:var(--bg);border-radius:6px;width:34px;height:32px;cursor:pointer}
+.choices{display:grid;gap:8px}
+.choice{text-align:left;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:11px 14px;cursor:pointer}
+.choice.right{border-color:var(--good);background:var(--good-soft)}
+.choice.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+/* the result slip, styled like a bar receipt (scontrino) */
+.slip{font-family:var(--mono);font-size:.9rem;border-top:2px dashed var(--line);padding-top:16px;display:grid;gap:10px}
+.verdict{display:inline-flex;align-self:start;justify-self:start;gap:8px;align-items:center;padding:3px 10px;border-radius:999px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;font-size:.75rem}
+.v-good{background:var(--good-soft);color:var(--good)}
+.v-warn{background:var(--warn-soft);color:var(--warn)}
+.v-bad{background:var(--bad-soft);color:var(--bad)}
+.slip .line{display:grid;grid-template-columns:9ch minmax(0,1fr);gap:10px}
+.slip .line span:first-child{color:var(--muted)}
+.slip .line span:last-child{font-family:var(--body);font-size:1rem;overflow-wrap:anywhere}
+.note{font-family:var(--body);font-size:.95rem;color:var(--muted)}
+.thinking{color:var(--muted);font-style:italic;font-family:var(--body)}
+.claude-off{font-family:var(--body);font-size:.9rem;color:var(--muted)}
+
+@media (max-width:760px){
+  .verbs{grid-template-columns:1fr}
+  .vlist{position:static}
+  .vitems{max-height:280px}
+  .brand h1{font-size:1.7rem}
+  .brand span{display:none}
+}
+@media (max-width:420px){
+  .cell{flex-direction:column;gap:0}
+  th,td{padding:8px 10px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .card{animation:rise .25s ease-out}
+  @keyframes rise{from{transform:translateY(4px)}to{transform:none}}
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><h1>il <i>Presente</i></h1><span>Italian present tense, for the trip</span></div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" id="tab-learn" data-view="learn">Patterns</button>
+      <button role="tab" id="tab-verbs" data-view="verbs">Verbs</button>
+      <button role="tab" id="tab-phrases" data-view="phrases">Phrases</button>
+      <button role="tab" id="tab-practice" data-view="practice">Practice</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ PATTERNS ============ -->
+<section class="view" id="view-learn" hidden>
+  <div class="learn">
+    <div class="lesson">
+      <p class="kicker">Start here</p>
+      <h2>Most of the present tense is six endings</h2>
+      <p class="intro">An Italian verb changes its ending to show who is doing the action. Learn the endings for the three verb families, then the handful of everyday verbs that break the rules. These ten patterns cover almost everything you'll say in a bar, a restaurant or a shop.</p>
+    </div>
+
+    <div class="lesson">
+      <p class="kicker">Pattern 1</p>
+      <h3>Who is doing it, and why you can skip the pronoun</h3>
+      <div class="tablebox"><table>
+        <thead><tr><th>Pronoun</th><th>Means</th><th>When you'll use it</th></tr></thead>
+        <tbody>
+          <tr><td><b>io</b></td><td>I</td><td>Ordering, talking about yourself</td></tr>
+          <tr><td><b>tu</b></td><td>you (one friend)</td><td>Friends, people your age who use tu with you</td></tr>
+          <tr><td><b>lui / lei</b></td><td>he / she</td><td>Talking about someone</td></tr>
+          <tr><td><b>Lei</b></td><td>you (polite)</td><td>Waiters, shop staff, strangers. It uses the <i>he/she</i> form.</td></tr>
+          <tr><td><b>noi</b></td><td>we</td><td>Ordering for your group, plans</td></tr>
+          <tr><td><b>voi</b></td><td>you (plural)</td><td>Asking a shop or bar: <i>Avete…?</i> = Do you (all) have…?</td></tr>
+          <tr><td><b>loro</b></td><td>they</td><td>Overheard talk about other people</td></tr>
+        </tbody>
+      </table></div>
+      <p>The ending already tells you who is acting, so Italians usually drop the pronoun. <b>Parlo</b> means "I speak" on its own. Add <i>io</i> only for emphasis: <i>Pago io!</i> = "I'm paying!"</p>
+      <div class="callout"><b>Travel tip</b><p>When a waiter says <i>Cosa prende?</i> they mean "What will <u>you</u> have?" The polite <b>Lei</b> borrows the he/she form, so <i>prende</i> can mean "he takes", "she takes" or "you (polite) take".</p></div>
+    </div>
+
+    <div class="lesson">
+      <p class="kicker">Pattern 2</p>
+      <h3>The three families: -are, -ere, -ire</h3>
+      <p>Chop off the last three letters of the infinitive to get the stem (<i>parl</i>-are, <i>prend</i>-ere, <i>dorm</i>-ire), then add the ending.</p>
+      <div class="tablebox"><table>
+        <thead><tr><th></th><th>-are · parlare<br>to speak</th><th>-ere · prendere<br>to take</th><th>-ire · dormire<br>to sleep</th></tr></thead>
+        <tbody>
+          <tr><td class="pr">io</td><td>parl<span class="e">o</span></td><td>prend<span class="e">o</span></td><td>dorm<span class="e">o</span></td></tr>
+          <tr><td class="pr">tu</td><td>parl<span class="e">i</span></td><td>prend<span class="e">i</span></td><td>dorm<span class="e">i</span></td></tr>
+          <tr><td class="pr">lui / lei / Lei</td><td>parl<span class="e">a</span></td><td>prend<span class="e">e</span></td><td>dorm<span class="e">e</span></td></tr>
+          <tr><td class="pr">noi</td><td>parl<span class="e">iamo</span></td><td>prend<span class="e">iamo</span></td><td>dorm<span class="e">iamo</span></td></tr>
+          <tr><td class="pr">voi</td><td>parl<span class="e">ate</span></td><td>prend<span class="e">ete</span></td><td>dorm<span class="e">ite</span></td></tr>
+          <tr><td class="pr">loro</td><td>parl<span class="e">ano</span></td><td>prend<span class="e">ono</span></td><td>dorm<span class="e">ono</span></td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><b>io</b> always ends in <span class="e">-o</span>, <b>tu</b> always in <span class="e">-i</span>, and <b>noi</b> always in <span class="e">-iamo</span>. That holds for almost every verb, irregular ones included.</li>
+        <li><b>voi</b> keeps the infinitive's vowel: parl<b>a</b>re → parl<b>a</b>te, prend<b>e</b>re → prend<b>e</b>te, dorm<b>i</b>re → dorm<b>i</b>te.</li>
+        <li><b>loro</b> is the he/she form plus <b>-no</b>: parla → parla<b>no</b>. For -ere and -ire the e becomes o: prende → prend<b>ono</b>.</li>
+        <li>-ere and -ire are identical except in the voi form.</li>
+      </ul>
+    </div>
+
+    <div class="lesson">
+      <p class="kicker">Pattern 3</p>
+      <h3>The -isc- verbs</h3>
+      <p>Some -ire verbs slip <b>-isc-</b> between the stem and the ending in every form except noi and voi. You can't tell from the infinitive, so memorize the common ones: <b>capire</b> (understand), <b>preferire</b> (prefer), <b>finire</b> (finish).</p>
+      <div class="tablebox"><table>
+        <thead><tr><th></th><th>capire · to understand</th><th>preferire · to prefer</th></tr></thead>
+        <tbody>
+          <tr><td class="pr">io</td><td>cap<span class="e">isco</span></td><td>prefer<span class="e">isco</span></td></tr>
+          <tr><td class="pr">tu</td><td>cap<span class="e">isci</span></td><td>prefer<span class="e">isci</span></td></tr>
+          <tr><td class="pr">lui / lei / Lei</td><td>cap<span class="e">isce</span></td><td>prefer<span class="e">isce</span></td></tr>
+          <tr><td class="pr">noi</td><td>cap<span class="e">iamo</span></td><td>prefer<span class="e">iamo</span></td></tr>
+          <tr><td class="pr">voi</td><td>cap<span class="e">ite</span></td><td>prefer<span class="e">ite</span></td></tr>
+          <tr><td class="pr">loro</td><td>cap<span class="e">iscono</span></td><td>prefer<span class="e">iscono</span></td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Say it:</b> <i>-isco</i> sounds like "EES-ko" but <i>-isci</i> and <i>-isce</i> sound like "EE-shee" and "EE-sheh". <i>Non capisco</i> ("I don't understand") is one of the most useful sentences you can know.</p>
+    </div>
+
+    <div class="lesson">
+      <p class="kicker">Pattern 4</p>
+      <h3>Spelling rules that keep the sound</h3>
+      <ul>
+        <li><b>-care / -gare</b> add an <b>h</b> before i, so the hard "k" or "g" sound stays: pagare → <i>pag<b>h</b>i, pag<b>h</b>iamo</i>; cercare → <i>cerc<b>h</b>i, cerc<b>h</b>iamo</i>.</li>
+        <li><b>-iare</b> verbs don't double the i: mangiare → <i>mangi</i> (not mangii), <i>mangiamo</i>. The same goes for cominciare, lasciare and consigliare.</li>
+        <li>-ere verbs <b>don't</b> add the h, so the sound shifts: conoscere → <i>conosco</i> ("ko") but <i>conosci</i> ("shee").</li>
+      </ul>
+    </div>
+
+    <div class="lesson">
+      <p class="kicker">Pattern 5</p>
+      <h3>Irregular verbs follow the "boot"</h3>
+      <p>Put the singular forms on the left and the plurals on the right. In most irregular verbs the odd forms are <b>io, tu, lui/lei and loro</b>, which together make the shape of a boot. <b>noi</b> and <b>voi</b> usually stay regular.</p>
+      <div id="boot-demo"></div>
+      <div class="legend"><span><i class="sw" style="background:var(--accent-soft)"></i>irregular form (the boot)</span><span><i class="sw" style="background:var(--end-soft)"></i>regular ending</span></div>
+      <ul>
+        <li><b>The -go verbs:</b> venire → <i>ven<b>go</b>, ven<b>gono</b></i>; rimanere → <i>riman<b>go</b>, riman<b>gono</b></i>. If io ends in -go, loro ends in -gono.</li>
+        <li><b>io and loro often match:</b> <i>vado / vanno</i>, <i>faccio / fanno</i>, <i>voglio / vogliono</i>, <i>esco / escono</i>.</li>
+        <li><b>Short verbs</b> (dare, fare, stare, andare, sapere) use the same mini-endings: <i>-ai, -a, -anno</i>: dai/dà/danno, fai/fa/fanno, stai/sta/stanno, vai/va/vanno, sai/sa/sanno.</li>
+      </ul>
+    </div>
+
+    <div class="lesson">
+      <p class="kicker">Pattern 6</p>
+      <h3>The big four: essere, avere, andare, fare</h3>
+      <p>These are fully irregular and show up in nearly every conversation. Learn them first.</p>
+      <div id="big4" style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))"></div>
+      <div class="callout"><b>Where English says "be", Italian often says "have" or "do"</b>
+        <p><i>Ho fame</i> I'm hungry · <i>Ho sete</i> I'm thirsty · <i>Ho fretta</i> I'm in a hurry · <i>Hai ragione</i> You're right<br><i>Fa caldo / freddo</i> It's hot / cold · <i>Faccio colazione</i> I have breakfast · <i>Facciamo una passeggiata</i> We take a walk</p>
+      </div>
+    </div>
+
+    <div class="lesson">
+      <p class="kicker">Pattern 7</p>
+      <h3>volere, potere, dovere + an infinitive</h3>
+      <p>"Want to", "can" and "must" are followed straight by the unchanged infinitive, just like in English. Conjugate only the first verb.</p>
+      <div class="ex">
+        <div><span class="it">Posso pagare con la carta?</span><span class="en">Can I pay by card?</span></div>
+        <div><span class="it">Devo prendere il treno.</span><span class="en">I have to catch the train.</span></div>
+        <div><span class="it">Vogliamo vedere il Duomo.</span><span class="en">We want to see the cathedral.</span></div>
+      </div>
+      <div class="callout"><b>The polite one: vorrei</b>
+        <p><i>Voglio</i> ("I want") sounds blunt when ordering. Say <b>vorrei</b> ("I would like"), or <b>vorremmo</b> for a group. It isn't present tense, but you'll use it constantly: <i>Vorrei un caffè, per favore.</i> Just as natural: <i>Prendo un caffè</i> ("I'll have an espresso").</p>
+      </div>
+    </div>
+
+    <div class="lesson">
+      <p class="kicker">Pattern 8</p>
+      <h3>piacere: "it pleases me"</h3>
+      <p>Italian has no direct verb for "to like". Instead, the thing you like is the subject: "it is pleasing to me". So the verb agrees with the <b>thing</b>, not with you.</p>
+      <div class="ex">
+        <div><span class="it">Mi <span class="e">piace</span> il vino.</span><span class="en">I like the wine. (one thing)</span></div>
+        <div><span class="it">Mi <span class="e">piacciono</span> le olive.</span><span class="en">I like the olives. (more than one)</span></div>
+        <div><span class="it">Mi piace camminare.</span><span class="en">I like walking. (an activity takes piace)</span></div>
+        <div><span class="it">Ti piace? / Le piace?</span><span class="en">Do you like it? (friend / polite)</span></div>
+        <div><span class="it">Ci piace Roma.</span><span class="en">We like Rome.</span></div>
+      </div>
+    </div>
+
+    <div class="lesson">
+      <p class="kicker">Pattern 9</p>
+      <h3>One tense, three jobs</h3>
+      <ul>
+        <li><b>Right now:</b> <i>Bevo un caffè</i> = I'm drinking an espresso.</li>
+        <li><b>Habits:</b> <i>Bevo un caffè ogni mattina</i> = I drink an espresso every morning.</li>
+        <li><b>Plans and the near future:</b> <i>Domani vado a Firenze</i> = Tomorrow I'm going to Florence. Add a time word (domani, stasera, venerdì) and the present tense covers your plans.</li>
+      </ul>
+    </div>
+
+    <div class="lesson">
+      <p class="kicker">Pattern 10</p>
+      <h3>Questions and "not"</h3>
+      <ul>
+        <li><b>Negative:</b> put <b>non</b> right before the verb: <i>Non mangio carne</i> = I don't eat meat.</li>
+        <li><b>Question:</b> keep the same words and raise your voice at the end: <i>Prendete la carta?</i> = Do you take cards?</li>
+        <li>Question words go first: <i>Quanto costa?</i> How much is it? · <i>A che ora apre?</i> What time does it open? · <i>Dove vai?</i> Where are you going?</li>
+      </ul>
+      <button class="btn cta" type="button" data-goto="practice">Start practising</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VERBS ============ -->
+<section class="view" id="view-verbs" hidden>
+  <div class="verbs">
+    <div class="vlist">
+      <input id="vsearch" type="search" placeholder="Search Italian or English" aria-label="Search verbs">
+      <div class="chips" id="vfilter"></div>
+      <div class="vitems" id="vitems"></div>
+      <p class="label" id="vcount"></p>
+    </div>
+    <div class="vdetail" id="vdetail"></div>
+  </div>
+</section>
+
+<!-- ============ PHRASES ============ -->
+<section class="view" id="view-phrases" hidden>
+  <div style="display:grid;gap:8px;margin-bottom:24px;max-width:65ch">
+    <h2>Phrases by situation</h2>
+    <p class="muted">Every practice sentence, grouped by where you'll need it. The highlighted word is the present-tense verb. Tap the speaker to hear it.</p>
+  </div>
+  <div id="phrases"></div>
+</section>
+
+<!-- ============ PRACTICE ============ -->
+<section class="view" id="view-practice" hidden>
+  <div class="prac">
+    <div class="controls">
+      <div class="modes" id="modes"></div>
+      <div class="chips" id="pfilter" aria-label="Filter"></div>
+    </div>
+    <div class="row" style="justify-content:space-between">
+      <div class="tally" id="tally"></div>
+      <button class="btn ghost" type="button" id="skip">Skip</button>
+    </div>
+    <div class="card" id="card"></div>
+  </div>
+</section>
+</main>
+
+<script>
+/* ---------------- data ---------------- */
+const PERSONS = ["io","tu","lui/lei","noi","voi","loro"];
+const PERSON_EN = ["I","you (friend)","he / she / you (polite)","we","you all","they"];
+const SCENES = {
+  cafe:{name:"Café & bar", tip:"“Un caffè” is an espresso. In many bars you pay at the till (la cassa) first, then hand the receipt (lo scontrino) to the barista. Standing at the counter (al banco) costs less than sitting at a table."},
+  rest:{name:"Restaurant", tip:"Waiters address you as Lei, which uses the he/she form: “Cosa prende?” The bill (il conto) won't come until you ask for it, and a small cover charge (il coperto) per person is normal."},
+  shop:{name:"Shops", tip:"Many small shops close for lunch, roughly 13:00–16:00. At the deli counter quantities go by the etto (100 g), so due etti = 200 g. Say “Buongiorno” when you walk in."},
+  talk:{name:"Plans & chat", tip:"Italian uses the present tense for plans: “Domani vado a Firenze.” Use tu with friends and people your age who use it with you, and Lei with strangers and older people."},
+  hear:{name:"Overheard", tip:"Around you, you'll hear lots of voi (you all) and loro (they). Listen to the ending: -ano, -ono or -scono almost always means “they”."}
+};
+// [infinitive, English, family, irregular forms (or null), tags, note]
+const VERBS = [
+ ["essere","to be","irr",["sono","sei","è","siamo","siete","sono"],["core","talk"],"Sono appears twice: io sono (I am) and loro sono (they are). Context tells you which. Note the accent: è = is, e = and."],
+ ["avere","to have","irr",["ho","hai","ha","abbiamo","avete","hanno"],["core","food","shop"],"The h is silent: ho sounds like “oh”. Used for hunger, thirst, age and hurry: ho fame, ho sete, ho fretta."],
+ ["andare","to go","irr",["vado","vai","va","andiamo","andate","vanno"],["core","talk"],"Andiamo! (Let's go!) is everywhere. Vado a + city, vado in + country or shop type: vado in farmacia."],
+ ["fare","to do, to make","irr",["faccio","fai","fa","facciamo","fate","fanno"],["core","talk","food"],"Also for weather (fa caldo) and many set phrases: fare colazione (have breakfast), fare la spesa (do the grocery shopping)."],
+ ["venire","to come","irr",["vengo","vieni","viene","veniamo","venite","vengono"],["talk"],"A -go verb: vengo / vengono. Vieni con noi? = Are you coming with us?"],
+ ["volere","to want","irr",["voglio","vuoi","vuole","vogliamo","volete","vogliono"],["core","food","shop"],"For ordering, the softer vorrei (I would like) is more polite than voglio."],
+ ["potere","can, to be able","irr",["posso","puoi","può","possiamo","potete","possono"],["core","food","shop"],"Posso…? (Can I…?) opens almost any polite request: Posso pagare? Posso provare?"],
+ ["dovere","must, to have to","irr",["devo","devi","deve","dobbiamo","dovete","devono"],["core","talk"],"Quanto le devo? = How much do I owe you? (a very handy way to ask for the total)"],
+ ["sapere","to know (a fact), to know how","irr",["so","sai","sa","sappiamo","sapete","sanno"],["talk"],"Non lo so = I don't know. For knowing a person or place, use conoscere."],
+ ["stare","to stay, to be (feeling)","irr",["sto","stai","sta","stiamo","state","stanno"],["talk"],"Come stai? / Come sta? (friend / polite) = How are you? Answer: Sto bene, grazie."],
+ ["dare","to give","irr",["do","dai","dà","diamo","date","danno"],["shop","food"],"dà (gives) has an accent to tell it apart from da (from). Mi dà…? = Could you give me…?"],
+ ["dire","to say, to tell","irr",["dico","dici","dice","diciamo","dite","dicono"],["talk"],"Come si dice … in italiano? = How do you say … in Italian?"],
+ ["bere","to drink","irr",["bevo","bevi","beve","beviamo","bevete","bevono"],["food"],"Built on the old stem bev- and then fully regular: bev-o, bev-i, bev-e…"],
+ ["uscire","to go out, to leave","irr",["esco","esci","esce","usciamo","uscite","escono"],["talk"],"The stem flips to esc- inside the boot. Usciamo stasera? = Shall we go out tonight?"],
+ ["rimanere","to stay, to remain","irr",["rimango","rimani","rimane","rimaniamo","rimanete","rimangono"],["talk"],"A -go verb. Quanto tempo rimani? = How long are you staying?"],
+ ["piacere","to be pleasing (to like)","irr",["piaccio","piaci","piace","piacciamo","piacete","piacciono"],["core","food","shop"],"You'll use two forms almost exclusively: mi piace (one thing) and mi piacciono (several). The thing liked is the subject."],
+ ["chiamarsi","to be called","refl",null,["talk"],"Reflexive: the verb carries a pronoun (mi, ti, si, ci, vi, si) that matches the subject. Come ti chiami? / Come si chiama?"],
+ ["parlare","to speak","are",null,["core","talk"],"Parla inglese? = Do you speak English? (polite)"],
+ ["mangiare","to eat","are",null,["food"],"-iare verb: mangi (not mangii), mangiamo."],
+ ["pagare","to pay","are",null,["food","shop"],"-gare verb: adds an h before i to keep the hard g: paghi, paghiamo."],
+ ["cercare","to look for","are",null,["shop"],"-care verb: cerchi, cerchiamo. No “for” needed: cerco una farmacia = I'm looking for a pharmacy."],
+ ["comprare","to buy","are",null,["shop"],""],
+ ["costare","to cost","are",null,["shop","food"],"Almost always costa (it costs) or costano (they cost)."],
+ ["prenotare","to book, to reserve","are",null,["food"],""],
+ ["ordinare","to order","are",null,["food"],""],
+ ["portare","to bring, to carry","are",null,["food"],"Ci porta il conto? = Could you bring us the bill?"],
+ ["consigliare","to recommend","are",null,["food","shop"],"-iare verb. Cosa mi consiglia? = What do you recommend?"],
+ ["desiderare","to wish, to want","are",null,["food","shop"],"Staff say this to you: Desidera? (What would you like?) Desidera altro? (Anything else?)"],
+ ["lasciare","to leave (something)","are",null,["food"],"-iare verb: lasci, lasciamo. Lasciamo la mancia? = Shall we leave a tip?"],
+ ["aspettare","to wait for","are",null,["food","talk"],"No “for” needed: aspetto il treno = I'm waiting for the train."],
+ ["provare","to try, to try on","are",null,["shop","food"],""],
+ ["guardare","to watch, to look at","are",null,["talk"],""],
+ ["pensare","to think","are",null,["talk","shop"],"Ci penso = I'll think about it (a polite way to leave a shop)."],
+ ["cominciare","to begin","are",null,["talk"],"-iare verb: cominci, cominciamo."],
+ ["arrivare","to arrive","are",null,["talk"],""],
+ ["tornare","to return, to go back","are",null,["talk"],""],
+ ["visitare","to visit (a place)","are",null,["talk"],""],
+ ["abitare","to live (reside)","are",null,["talk"],""],
+ ["lavorare","to work","are",null,["talk"],""],
+ ["prendere","to take, to have (food or drink)","ere",null,["core","food","shop"],"The everyday verb for ordering: prendo un caffè. And la prendo = I'll take it."],
+ ["vedere","to see","ere",null,["talk"],"Ci vediamo! = See you!"],
+ ["chiedere","to ask, to ask for","ere",null,["food","talk"],""],
+ ["chiudere","to close","ere",null,["shop","food"],""],
+ ["spendere","to spend (money)","ere",null,["shop"],""],
+ ["conoscere","to know (a person or place)","ere",null,["talk"],"No h added: conosco (hard “k”) but conosci (soft “sh”)."],
+ ["vivere","to live","ere",null,["talk"],""],
+ ["aprire","to open","ire",null,["shop","food"],""],
+ ["dormire","to sleep","ire",null,["talk"],""],
+ ["partire","to leave, to depart","ire",null,["talk"],"For trains, trips and people leaving town: il treno parte alle otto."],
+ ["offrire","to offer, to treat","ire",null,["food"],"Offro io! = It's on me!"],
+ ["capire","to understand","isc",null,["core","talk"],"Non capisco = I don't understand."],
+ ["preferire","to prefer","isc",null,["talk","food"],""],
+ ["finire","to finish","isc",null,["talk"],""]
+];
+// [scene, verb, person, Italian, English, other accepted Italian answers, hint override]
+const S = [
+ ["cafe","prendere",0,"Prendo un caffè, per favore.","I'll have an espresso, please.",["Prendo un caffè per piacere"]],
+ ["cafe","prendere",3,"Prendiamo due cappuccini.","We'll have two cappuccinos."],
+ ["cafe","volere",1,"Vuoi un cornetto?","Do you want a croissant?"],
+ ["cafe","bere",0,"Non bevo alcol.","I don't drink alcohol.",["Non bevo alcolici"]],
+ ["cafe","bere",3,"Beviamo uno spritz?","Shall we have a spritz?",["Prendiamo uno spritz"]],
+ ["cafe","pagare",0,"Pago alla cassa?","Do I pay at the till?",["Pago alla cassa prima"]],
+ ["cafe","costare",2,"Quanto costa un cappuccino?","How much is a cappuccino?",["Un cappuccino quanto costa"]],
+ ["cafe","essere",2,"Il caffè è buonissimo!","The coffee is excellent!",["Il caffè è ottimo"]],
+ ["cafe","avere",4,"Avete latte di soia?","Do you have soy milk?",["Avete il latte di soia","Ha latte di soia"]],
+ ["cafe","fare",2,"Il barista fa un ottimo caffè.","The barista makes excellent coffee."],
+ ["cafe","potere",3,"Possiamo sederci qui?","Can we sit here?"],
+ ["cafe","dare",2,"Mi dà un bicchiere d'acqua?","Could you give me a glass of water?",["Mi dà un bicchiere di acqua"]],
+ ["cafe","ordinare",3,"Ordiniamo al banco.","We order at the counter."],
+ ["cafe","offrire",0,"Offro io!","It's on me!",["Pago io"]],
+ ["cafe","guardare",3,"Guardiamo la partita al bar.","We're watching the match at the bar."],
+ ["cafe","avere",0,"Ho sete.","I'm thirsty."],
+ ["rest","avere",4,"Avete un tavolo per due?","Do you have a table for two?",["Avete un tavolo per due persone","C'è un tavolo per due"]],
+ ["rest","prenotare",3,"Prenotiamo per le otto?","Shall we book for eight o'clock?"],
+ ["rest","portare",2,"Ci porta il conto, per favore?","Could you bring us the bill, please?",["Ci porta il conto per piacere","Ci porta il conto"]],
+ ["rest","consigliare",2,"Cosa ci consiglia?","What do you recommend?",["Che cosa ci consiglia","Cosa mi consiglia","Che cosa mi consiglia"]],
+ ["rest","mangiare",3,"Mangiamo fuori stasera.","We're eating out tonight.",["Stasera mangiamo fuori"]],
+ ["rest","essere",2,"Il servizio è incluso?","Is service included?"],
+ ["rest","prendere",0,"Per secondo prendo il pesce.","For the main course I'll have the fish.",["Prendo il pesce per secondo","Come secondo prendo il pesce"]],
+ ["rest","potere",0,"Posso vedere il menù?","Can I see the menu?",["Posso vedere il menu"]],
+ ["rest","essere",0,"Sono allergico alle noci.","I'm allergic to nuts.",["Sono allergica alle noci"]],
+ ["rest","mangiare",0,"Non mangio carne.","I don't eat meat.",["Non mangio la carne"]],
+ ["rest","dovere",0,"Quanto le devo?","How much do I owe you?",["Quanto devo"]],
+ ["rest","aspettare",3,"Aspettiamo un amico.","We're waiting for a friend.",["Aspettiamo un'amica"]],
+ ["rest","chiudere",2,"La cucina chiude alle dieci.","The kitchen closes at ten."],
+ ["rest","pagare",3,"Paghiamo con la carta.","We'll pay by card.",["Paghiamo con carta"]],
+ ["rest","bere",3,"Beviamo il vino della casa.","We'll drink the house wine.",["Prendiamo il vino della casa"]],
+ ["rest","chiedere",0,"Chiedo il conto.","I'll ask for the bill."],
+ ["rest","lasciare",3,"Lasciamo la mancia?","Shall we leave a tip?"],
+ ["rest","preferire",0,"Preferisco l'acqua frizzante.","I prefer sparkling water.",["Preferisco acqua frizzante"]],
+ ["rest","avere",0,"Ho fame!","I'm hungry!"],
+ ["shop","cercare",0,"Cerco una borsa di pelle.","I'm looking for a leather bag."],
+ ["shop","dare",0,"Do solo un'occhiata, grazie.","I'm just having a look, thanks.",["Do solo un'occhiata"]],
+ ["shop","provare",0,"Provo la taglia media.","I'll try the medium size."],
+ ["shop","costare",5,"Quanto costano queste scarpe?","How much are these shoes?"],
+ ["shop","prendere",0,"La prendo.","I'll take it.",["Lo prendo"]],
+ ["shop","avere",4,"Avete una taglia più grande?","Do you have a bigger size?",["Ha una taglia più grande"]],
+ ["shop","aprire",2,"Il negozio apre alle nove.","The shop opens at nine."],
+ ["shop","chiudere",5,"I negozi chiudono all'una.","The shops close at one."],
+ ["shop","spendere",0,"Spendo troppo!","I spend too much!",["Spendo troppo soldi"]],
+ ["shop","pagare",0,"Pago in contanti.","I'll pay cash.",["Pago in contante"]],
+ ["shop","prendere",4,"Prendete la carta?","Do you take cards?",["Accettate la carta","Prendete carte"]],
+ ["shop","comprare",0,"Compro un regalo per mia madre.","I'm buying a present for my mother."],
+ ["shop","fare",2,"Mi fa uno sconto?","Will you give me a discount?",["Mi fa lo sconto"]],
+ ["shop","prendere",0,"Prendo due etti di prosciutto.","I'll take 200 grams of prosciutto."],
+ ["shop","essere",2,"È troppo caro.","It's too expensive.",["È troppo cara"]],
+ ["shop","piacere",2,"Mi piace questo colore.","I like this colour.",null,"piacere · questo colore = it"],
+ ["shop","piacere",5,"Mi piacciono questi sandali.","I like these sandals.",null,"piacere · questi sandali = they"],
+ ["shop","pensare",0,"Ci penso, grazie.","I'll think about it, thanks.",["Ci penso"]],
+ ["shop","aprire",4,"Aprite domenica?","Are you open on Sunday?",["Siete aperti domenica"]],
+ ["shop","desiderare",2,"Desidera altro?","Would you like anything else?",["Altro"]],
+ ["shop","consigliare",2,"Cosa mi consiglia?","What do you recommend?",["Che cosa mi consiglia"]],
+ ["talk","chiamarsi",0,"Mi chiamo Alex.","My name is Alex.",["Io mi chiamo Alex"]],
+ ["talk","essere",0,"Sono in vacanza.","I'm on holiday."],
+ ["talk","venire",1,"Vieni con noi stasera?","Are you coming with us tonight?",["Stasera vieni con noi"]],
+ ["talk","andare",0,"Domani vado a Firenze.","Tomorrow I'm going to Florence.",["Vado a Firenze domani"]],
+ ["talk","andare",3,"Andiamo al museo stamattina.","We're going to the museum this morning.",["Stamattina andiamo al museo"]],
+ ["talk","rimanere",0,"Rimango a Roma per una settimana.","I'm staying in Rome for a week.",["Rimango a Roma una settimana","Sto a Roma per una settimana"]],
+ ["talk","fare",1,"Cosa fai stasera?","What are you doing tonight?",["Che fai stasera","Che cosa fai stasera"]],
+ ["talk","fare",3,"Facciamo una passeggiata?","Shall we take a walk?"],
+ ["talk","parlare",0,"Parlo un po' d'italiano.","I speak a little Italian.",["Parlo un po' di italiano","Parlo un po' italiano"]],
+ ["talk","capire",0,"Non capisco.","I don't understand."],
+ ["talk","parlare",2,"Parla inglese?","Do you speak English? (polite)",["Lei parla inglese"]],
+ ["talk","potere",2,"Può ripetere, per favore?","Could you repeat that, please?",["Può ripetere per piacere","Può ripetere"]],
+ ["talk","sapere",0,"Non lo so.","I don't know."],
+ ["talk","dovere",0,"Devo partire presto domani.","I have to leave early tomorrow.",["Domani devo partire presto"]],
+ ["talk","partire",3,"Partiamo per Venezia venerdì.","We leave for Venice on Friday.",["Venerdì partiamo per Venezia"]],
+ ["talk","arrivare",0,"Arrivo stasera alle otto.","I arrive tonight at eight.",["Arrivo alle otto stasera","Stasera arrivo alle otto"]],
+ ["talk","tornare",0,"Torno a casa la settimana prossima.","I'm going back home next week.",["La settimana prossima torno a casa"]],
+ ["talk","abitare",1,"Abiti qui vicino?","Do you live near here?",["Vivi qui vicino"]],
+ ["talk","lavorare",0,"Lavoro in un ufficio.","I work in an office."],
+ ["talk","stare",1,"Come stai?","How are you? (friend)"],
+ ["talk","stare",0,"Sto bene, grazie.","I'm fine, thanks.",["Sto bene"]],
+ ["talk","preferire",0,"Preferisco il mare alla montagna.","I prefer the sea to the mountains."],
+ ["talk","visitare",3,"Visitiamo il Colosseo domani.","We're visiting the Colosseum tomorrow.",["Domani visitiamo il Colosseo"]],
+ ["talk","volere",0,"Voglio vedere il Duomo.","I want to see the cathedral."],
+ ["talk","uscire",3,"Usciamo stasera?","Shall we go out tonight?",["Stasera usciamo"]],
+ ["talk","dormire",0,"Dormo in un albergo vicino alla stazione.","I'm sleeping at a hotel near the station.",["Dormo in un hotel vicino alla stazione"]],
+ ["talk","conoscere",1,"Conosci un buon ristorante qui vicino?","Do you know a good restaurant near here?"],
+ ["talk","sapere",1,"Sai dov'è la stazione?","Do you know where the station is?"],
+ ["talk","cominciare",2,"Il concerto comincia alle nove.","The concert starts at nine.",["Il concerto inizia alle nove"]],
+ ["talk","pensare",0,"Penso di sì.","I think so."],
+ ["talk","vedere",3,"Ci vediamo domani!","See you tomorrow!"],
+ ["talk","dire",2,"Come si dice «fork» in italiano?","How do you say “fork” in Italian?",["Come si dice fork"]],
+ ["talk","finire",1,"A che ora finisci?","What time do you finish?"],
+ ["talk","aspettare",0,"Ti aspetto davanti alla stazione.","I'll wait for you in front of the station."],
+ ["talk","vivere",5,"I miei nonni vivono in Sicilia.","My grandparents live in Sicily.",["I miei nonni abitano in Sicilia"]],
+ ["talk","avere",3,"Abbiamo fretta.","We're in a hurry."],
+ ["hear","fare",4,"Che fate stasera?","What are you guys doing tonight?"],
+ ["hear","andare",5,"Vanno al mare questo fine settimana.","They're going to the seaside this weekend."],
+ ["hear","venire",2,"Marco non viene, è stanco.","Marco isn't coming, he's tired."],
+ ["hear","essere",4,"Siete pronti per ordinare?","Are you ready to order?"],
+ ["hear","prendere",4,"Cosa prendete?","What will you have?"],
+ ["hear","partire",2,"Il treno parte tra dieci minuti.","The train leaves in ten minutes."],
+ ["hear","uscire",5,"Escono sempre tardi.","They always go out late."],
+ ["hear","sapere",5,"Non lo sanno ancora.","They don't know yet."],
+ ["hear","dovere",3,"Dobbiamo sbrigarci!","We have to hurry!"],
+ ["hear","volere",2,"Vuole un tavolo fuori?","Would you like a table outside?"],
+ ["hear","essere",2,"Chi è l'ultimo?","Who's last in line?"],
+ ["hear","fare",2,"Fa caldo oggi!","It's hot today!"],
+ ["hear","arrivare",5,"Arrivano tra poco.","They're arriving shortly."],
+ ["hear","lavorare",2,"Mia sorella lavora a Milano.","My sister works in Milan."],
+ ["hear","dire",2,"Dice che è chiuso.","He says it's closed."],
+ ["hear","avere",5,"Hanno ragione.","They're right."],
+ ["hear","dire",1,"Che cosa dici?","What are you saying?",["Cosa dici","Che dici"]],
+ ["hear","bere",5,"Bevono troppo caffè.","They drink too much coffee."],
+ ["hear","dare",5,"Danno un concerto in piazza stasera.","They're putting on a concert in the square tonight."],
+ ["hear","stare",3,"Stiamo bene qui.","We're fine here."],
+ ["hear","mangiare",5,"Mangiano sempre alle nove.","They always eat at nine."],
+ ["hear","conoscere",5,"Conoscono il proprietario.","They know the owner."],
+ ["hear","tornare",2,"Torna subito.","She'll be right back."],
+ ["hear","piacere",2,"Ti piace la pizza napoletana?","Do you like Neapolitan pizza?",null,"piacere · la pizza = it"]
+];
+const FREE = [
+ ["cafe","Order an espresso and a croissant, then ask how much it is.","Prendo un caffè e un cornetto. Quanto costa?"],
+ ["cafe","Ask your friend if they want a spritz, and say it's on you.","Vuoi uno spritz? Offro io!"],
+ ["rest","Ask for a table for four and whether you can sit outside.","Avete un tavolo per quattro? Possiamo sederci fuori?"],
+ ["rest","Tell the waiter you're allergic to nuts and you don't eat meat.","Sono allergico alle noci e non mangio carne."],
+ ["rest","Ask what the waiter recommends, then order the fish.","Cosa ci consiglia? Prendo il pesce."],
+ ["rest","Ask for the bill and say you'll pay by card.","Ci porta il conto, per favore? Paghiamo con la carta."],
+ ["shop","Say you're looking for a present and ask how much the scarf costs.","Cerco un regalo. Quanto costa questa sciarpa?"],
+ ["shop","Ask if they have a smaller size and if you can try it on.","Avete una taglia più piccola? Posso provarla?"],
+ ["shop","Ask what time the shop opens tomorrow.","A che ora apre il negozio domani?"],
+ ["shop","Say you like it but it's too expensive, and you'll think about it.","Mi piace, ma è troppo caro. Ci penso."],
+ ["talk","Introduce yourself: your name, that you're on holiday, and how long you're staying.","Mi chiamo Alex, sono in vacanza e rimango due settimane."],
+ ["talk","Tell someone two things you're doing tomorrow.","Domani vado a Firenze e visito gli Uffizi."],
+ ["talk","Ask a new friend what they're doing tonight and if they want to go out.","Cosa fai stasera? Vuoi uscire?"],
+ ["talk","Say you speak a little Italian and ask them to repeat slowly.","Parlo un po' d'italiano. Può ripetere più lentamente?"],
+ ["talk","Say what you and your travel partner like to do on holiday.","Ci piace mangiare bene e camminare in città."],
+ ["talk","Explain you have to go because your train leaves at eight.","Devo andare perché il treno parte alle otto."]
+];
+
+/* ---------------- grammar engine ---------------- */
+const END = {are:["o","i","a","iamo","ate","ano"], ere:["o","i","e","iamo","ete","ono"], ire:["o","i","e","iamo","ite","ono"], isc:["isco","isci","isce","iamo","ite","iscono"]};
+const REFL = ["mi","ti","si","ci","vi","si"];
+function regular(inf, fam){
+  const cls = fam==="isc" ? "isc" : inf.slice(-3);
+  const stem = inf.slice(0,-3);
+  return END[cls].map(e=>{
+    let s = stem;
+    if(cls==="are" && e[0]==="i"){
+      if(/[cg]$/.test(s)) s += "h";
+      else if(/i$/.test(s)) e = e.slice(1);
+    }
+    return s+e;
+  });
+}
+const V = {};
+for(const [inf,en,fam,forms,tags,note] of VERBS){
+  let f, pred, base = inf;
+  if(fam==="refl"){ base = inf.replace(/si$/,"e"); pred = regular(base,"are"); f = pred.map((x,i)=>REFL[i]+" "+x); }
+  else { pred = regular(inf, fam==="irr" ? null : fam); f = forms || pred; }
+  V[inf] = {inf,en,fam,forms:f,pred,tags,note,base,irrMask:f.map((x,i)=> fam==="irr" && x!==pred[i])};
+}
+const stemOf = v => v.base.slice(0,-3);
+function formHTML(v,i){
+  const f = v.forms[i];
+  if(v.irrMask[i]) return `<span class="irr">${f}</span>`;
+  let pre = "", core = f;
+  if(v.fam==="refl"){ pre = `<span class="rp">${REFL[i]}</span> `; core = f.slice(REFL[i].length+1); }
+  const st = stemOf(v); let k=0;
+  while(k<st.length && k<core.length && st[k]===core[k]) k++;
+  if(k>=core.length) k = core.length-1;
+  return pre + core.slice(0,k) + `<span class="e">${core.slice(k)}</span>`;
+}
+function famLabel(v){ return {are:"regular -are",ere:"regular -ere",ire:"regular -ire",isc:"-ire with -isc-",irr:"irregular",refl:"reflexive -are"}[v.fam]; }
+const TAGN = {core:"Essential",food:"Food & drink",shop:"Shops",talk:"Plans & chat"};
+
+/* sentences: locate the verb */
+const isL = c => /[a-zà-ÿ]/i.test(c||"");
+function locate(it, form){
+  const low = it.toLowerCase(); let i = -1, from = 0;
+  while((i = low.indexOf(form, from)) !== -1){
+    if(!isL(low[i-1]) && !isL(low[i+form.length])) return i;
+    from = i+1;
+  }
+  return -1;
+}
+const SENT = S.map(([s,v,p,it,en,alt,h],idx)=>{
+  const form = V[v].forms[p]; const at = locate(it, form);
+  if(at<0) console.warn("verb not found", it, form);
+  return {idx,s,v,p,it,en,alt:alt||[],h,form,at};
+});
+function markSentence(q, cls="mark"){
+  if(q.at<0) return esc(q.it);
+  return esc(q.it.slice(0,q.at)) + `<${cls}>` + esc(q.it.slice(q.at,q.at+q.form.length)) + `</${cls}>` + esc(q.it.slice(q.at+q.form.length));
+}
+
+/* ---------------- utils ---------------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pick = a => a[Math.floor(Math.random()*a.length)];
+const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+function store(k,v){ try{ if(v===undefined) return JSON.parse(localStorage.getItem("presente:"+k)); localStorage.setItem("presente:"+k, JSON.stringify(v)); }catch(e){ return null; } }
+function norm(s, keepAccents){
+  s = s.toLowerCase().replace(/[’‘`´]/g,"'");
+  if(!keepAccents){ s = s.normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/([aeiou])'(?=\s|$|[.,!?])/g,"$1"); }
+  s = s.replace(/[.,!?¿¡;:«»"“”()]/g," ").replace(/\s+/g," ").trim();
+  return s.replace(/^(io|tu|lui|lei|noi|voi|loro) /,"");
+}
+function lev(a,b){ const m=a.length,n=b.length; if(!m) return n; if(!n) return m; let p=[...Array(n+1).keys()];
+  for(let i=1;i<=m;i++){ const c=[i]; for(let j=1;j<=n;j++) c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1)); p=c; } return p[n]; }
+// compare an answer against accepted strings → "exact" | "accent" | "close" | "wrong"
+function grade(ans, accepted){
+  const a1 = norm(ans,true), a0 = norm(ans,false);
+  if(!a0) return {g:"wrong"};
+  for(const t of accepted) if(norm(t,true)===a1) return {g:"exact",t};
+  for(const t of accepted) if(norm(t,false)===a0) return {g:"accent",t};
+  let best=null, bd=1e9;
+  for(const t of accepted){ const b=norm(t,false), d=lev(a0,b)/Math.max(b.length,1); if(d<bd){bd=d;best=t;} }
+  return bd<=0.12 ? {g:"close",t:best} : {g:"wrong",t:best};
+}
+
+/* speech */
+const canSpeak = "speechSynthesis" in window;
+function speak(t){
+  if(!canSpeak) return;
+  try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/[«»]/g,"")); u.lang="it-IT"; u.rate=.9;
+    const vo = speechSynthesis.getVoices().find(v=>/^it/i.test(v.lang)); if(vo) u.voice = vo; speechSynthesis.speak(u); }catch(e){}
+}
+const SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+const spkBtn = t => canSpeak ? `<button class="icon" type="button" data-say="${esc(t)}" aria-label="Hear it">${SPK}</button>` : "";
+document.addEventListener("click", e=>{ const b=e.target.closest("[data-say]"); if(b) speak(b.dataset.say); });
+
+/* progress (per-viewer, this browser) */
+let stats = store("stats") || {};
+function record(v,p,ok){ const k=v+"|"+p; const s=stats[k]||(stats[k]={c:0,w:0}); ok?s.c++:s.w++; store("stats",stats); }
+function weight(v,p){ const s=stats[v+"|"+p]; if(!s) return 2; return Math.max(.3, 1.5 + s.w*1.5 - s.c*.6); }
+function mastery(v){ let n=0; for(let p=0;p<6;p++){ const s=stats[v+"|"+p]; if(s && s.c>s.w && s.c>=2) n++; } return n; }
+function weighted(items, wf){ const ws=items.map(wf), tot=ws.reduce((a,b)=>a+b,0); let r=Math.random()*tot; for(let i=0;i<items.length;i++){ r-=ws[i]; if(r<=0) return items[i]; } return items[items.length-1]; }
+
+/* ---------------- tables ---------------- */
+function bootGrid(v, hit){
+  const order=[0,3,1,4,2,5]; const lab=["io","tu","lui/lei/Lei","noi","voi","loro"];
+  return `<div class="grid2">${order.map(i=>`<div class="cell${v.irrMask[i]?" boot":""}${hit===i?" hit":""}"><span class="who">${lab[i]}</span><span class="f">${formHTML(v,i)}</span></div>`).join("")}</div>`;
+}
+$("#boot-demo").innerHTML = `<div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">${["venire","volere","uscire"].map(k=>`<div style="display:grid;gap:6px"><span class="label">${k} · ${V[k].en}</span>${bootGrid(V[k])}</div>`).join("")}</div>`;
+$("#big4").innerHTML = ["essere","avere","andare","fare"].map(k=>`<div style="display:grid;gap:6px"><span class="label">${k} · ${V[k].en}</span>${bootGrid(V[k])}</div>`).join("");
+
+/* ---------------- tabs ---------------- */
+function show(view){
+  document.querySelectorAll(".view").forEach(s=>s.hidden = s.id!=="view-"+view);
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.view===view));
+  store("tab",view);
+  if(view==="verbs") renderVerbList();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>show(b.dataset.view));
+document.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>show(b.dataset.goto));
+
+/* ---------------- verbs view ---------------- */
+let vFilter="all", vSel=store("verb")||"essere";
+const VF = [["all","All"],["core","Essential"],["food","Food & drink"],["shop","Shops"],["talk","Plans & chat"],["irr","Irregular"]];
+$("#vfilter").innerHTML = VF.map(([k,n])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k===vFilter}">${n}</button>`).join("");
+$("#vfilter").onclick = e=>{ const b=e.target.closest(".chip"); if(!b) return; vFilter=b.dataset.k; $("#vfilter").querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c===b)); renderVerbList(); };
+$("#vsearch").oninput = renderVerbList;
+const meterHTML = n => `<span class="meter" title="${n} of 6 forms mastered">${[0,1,2,3,4,5].map(i=>`<i class="${i<n?"on":""}"></i>`).join("")}</span>`;
+function renderVerbList(){
+  const q = norm($("#vsearch").value||"",false);
+  const list = Object.values(V).filter(v=>{
+    if(vFilter==="irr" && v.fam!=="irr") return false;
+    if(!["all","irr"].includes(vFilter) && !v.tags.includes(vFilter)) return false;
+    return !q || norm(v.inf,false).includes(q) || v.en.toLowerCase().includes(q) || v.forms.some(f=>norm(f,false)===q);
+  });
+  $("#vitems").innerHTML = list.map(v=>`<button class="vitem" type="button" data-v="${v.inf}" aria-current="${v.inf===vSel}"><b>${v.inf}</b><small>${v.en}</small><span class="m">${meterHTML(mastery(v.inf))}</span></button>`).join("") || `<p class="muted" style="padding:12px">No verb matches “${esc($("#vsearch").value)}”.</p>`;
+  $("#vcount").textContent = list.length+" verbs";
+  renderVerb();
+}
+$("#vitems").onclick = e=>{ const b=e.target.closest(".vitem"); if(!b) return; vSel=b.dataset.v; store("verb",vSel);
+  $("#vitems").querySelectorAll(".vitem").forEach(x=>x.setAttribute("aria-current",x===b)); renderVerb();
+  if(matchMedia("(max-width:760px)").matches) $("#vdetail").scrollIntoView({behavior:"smooth",block:"start"}); };
+function renderVerb(){
+  const v = V[vSel]; const ex = SENT.filter(s=>s.v===v.inf);
+  $("#vdetail").innerHTML = `
+    <div class="vhead"><h2>${v.inf}</h2>${spkBtn(v.inf)}<span class="en">${v.en}</span></div>
+    <div class="row">${[famLabel(v),...v.tags.map(t=>TAGN[t])].map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+    ${bootGrid(v)}
+    <div class="legend">${v.fam==="irr"?`<span><i class="sw" style="background:var(--accent-soft)"></i>irregular form</span>`:""}<span><span class="e">ending</span> added to the stem <b>${stemOf(v)}-</b></span></div>
+    ${v.note?`<div class="callout"><b>Note</b><p>${esc(v.note)}</p></div>`:""}
+    ${ex.length?`<div style="display:grid;gap:4px"><span class="label">In use</span>${ex.map(s=>`<div class="phrase"><span>${spkBtn(s.it)}</span><span class="it">${markSentence(s)}</span><span class="en">${esc(s.en)} <span class="tag">${PERSONS[s.p]}</span></span></div>`).join("")}</div>`:""}
+    <button class="btn ghost cta" type="button" id="drillThis">Drill ${v.inf}</button>`;
+  $("#drillThis").onclick = ()=>{ focusVerb=v.inf; mode="conj"; renderModes(); renderFilters(); show("practice"); next(); };
+}
+
+/* ---------------- phrases view ---------------- */
+$("#phrases").innerHTML = Object.entries(SCENES).map(([k,sc])=>`
+  <div class="scene"><h3>${sc.name}</h3><div class="callout"><p>${esc(sc.tip)}</p></div>
+  <div>${SENT.filter(s=>s.s===k).map(s=>`<div class="phrase"><span>${spkBtn(s.it)}</span><span class="it">${markSentence(s)}</span><span class="en">${esc(s.en)} · <i>${s.v}</i>, ${PERSONS[s.p]}</span></div>`).join("")}</div></div>`).join("");
+
+/* ---------------- practice ---------------- */
+let sample = null, claudeState = "loading";
+(async()=>{ try{ sample = window.claude ? await window.claude.use("sample") : null; }catch(e){ sample=null; }
+  claudeState = sample ? "ready" : "off"; if(mode==="free" || mode==="trans") refreshClaudeBits(); })();
+
+const MODES = [
+  ["conj","Conjugate","One verb, one person"],
+  ["gap","Fill the gap","Complete a real sentence"],
+  ["trans","Say it in Italian","Translate a whole sentence"],
+  ["hear","What did they say?","Understand Italian you hear"],
+  ["free","Write freely","Open tasks, checked by Claude"]
+];
+let mode = store("mode") || "gap", scene = store("scene") || "all", group = "all", focusVerb = null;
+let q = null, answered = false, tally = {n:0,c:0,streak:0};
+function renderModes(){
+  $("#modes").innerHTML = MODES.map(([k,n,d])=>`<button class="mode" type="button" data-m="${k}" aria-pressed="${k===mode}"><b>${n}</b><small>${d}</small></button>`).join("");
+}
+$("#modes").onclick = e=>{ const b=e.target.closest(".mode"); if(!b) return; mode=b.dataset.m; store("mode",mode); focusVerb=null; renderModes(); renderFilters(); next(); };
+function renderFilters(){
+  let opts;
+  if(mode==="conj") opts = [["all","All verbs"],["irr","Irregular"],["reg","Regular"],["core","Essential"]];
+  else opts = [["all","All situations"],...Object.entries(SCENES).filter(([k])=>mode!=="free"||k!=="hear").map(([k,s])=>[k,s.name])];
+  const cur = mode==="conj" ? group : scene;
+  let html = opts.map(([k,n])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k===cur && !focusVerb}">${n}</button>`).join("");
+  if(focusVerb) html += `<button class="chip" type="button" data-k="__focus" aria-pressed="true">Only ${focusVerb} ×</button>`;
+  $("#pfilter").innerHTML = html;
+}
+$("#pfilter").onclick = e=>{ const b=e.target.closest(".chip"); if(!b) return; const k=b.dataset.k;
+  if(k==="__focus"){ focusVerb=null; } else { focusVerb=null; if(mode==="conj") group=k; else { scene=k; store("scene",k); } }
+  renderFilters(); next(); };
+$("#skip").onclick = ()=>next();
+function renderTally(){ $("#tally").innerHTML = `<span>Correct <b>${tally.c}/${tally.n}</b></span><span>Streak <b>${tally.streak}</b></span>`; }
+function score(ok){ tally.n++; if(ok){tally.c++;tally.streak++;} else tally.streak=0; renderTally(); }
+
+function poolSent(){
+  let p = SENT.filter(s=>scene==="all"||s.s===scene);
+  if(focusVerb){ const f=SENT.filter(s=>s.v===focusVerb); if(f.length) p=f; }
+  if(q && p.length>1) p = p.filter(s=>s!==q);
+  return weighted(p, s=>weight(s.v,s.p));
+}
+function next(){
+  answered = false;
+  if(mode==="conj"){
+    let vs = Object.values(V).filter(v=> group==="all" || (group==="irr"&&v.fam==="irr") || (group==="reg"&&v.fam!=="irr") || (group==="core"&&v.tags.includes("core")));
+    if(focusVerb) vs=[V[focusVerb]];
+    const pairs = vs.flatMap(v=>[0,1,2,3,4,5].map(p=>[v,p])).filter(([v,p])=>!(q && q.v===v.inf && q.p===p && vs.length>1));
+    const [v,p] = weighted(pairs, ([v,p])=>weight(v.inf,p)*(v.tags.includes("core")?1.4:1));
+    q = {v:v.inf,p,form:v.forms[p]};
+  } else if(mode==="free"){
+    let pool = FREE.filter(f=>scene==="all"||scene==="hear"||f[0]===scene);
+    if(q && pool.length>1) pool = pool.filter(f=>f[1]!==q.task);
+    const f = pick(pool); q = {s:f[0],task:f[1],model:f[2]};
+  } else q = poolSent();
+  renderCard();
+}
+
+const ACC = ["à","è","é","ì","ò","ù"];
+const accentBar = id => `<div class="accents" aria-label="Accented letters">${ACC.map(a=>`<button type="button" data-ins="${a}" data-for="${id}" aria-label="Insert ${a}">${a}</button>`).join("")}</div>`;
+document.addEventListener("click", e=>{ const b=e.target.closest("[data-ins]"); if(!b) return; const el=document.getElementById(b.dataset.for); if(!el) return;
+  const s=el.selectionStart??el.value.length, t=el.selectionEnd??s; el.value = el.value.slice(0,s)+b.dataset.ins+el.value.slice(t); el.focus(); el.setSelectionRange(s+1,s+1); });
+
+function personLabel(p){ return p===2 ? pick(["lui","lei","Lei"]) : PERSONS[p]; }
+function renderCard(){
+  const c = $("#card");
+  if(mode==="conj"){
+    const v=V[q.v]; q.label = personLabel(q.p);
+    c.innerHTML = `<div class="prompt"><span class="label">Conjugate · ${famLabel(v)}</span>
+      <p class="big"><span class="who">${q.label}</span> + ${v.inf}</p><p class="muted">${v.en} · ${q.label==="Lei"?"you (polite)":PERSON_EN[q.p]}</p></div>
+      <form class="answer" id="f"><input id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type the verb form" aria-label="Your answer"><button class="btn" type="submit">Check</button></form>
+      ${accentBar("ans")}<div id="out"></div>`;
+  } else if(mode==="gap"){
+    const before = esc(q.it.slice(0,q.at)), after = esc(q.it.slice(q.at+q.form.length));
+    const hint = q.h || `${q.v} · ${PERSONS[q.p]}`;
+    c.innerHTML = `<div class="prompt"><span class="label">Fill the gap · ${SCENES[q.s].name}</span>
+      <p class="big">${before}<span class="gap">&nbsp;?&nbsp;</span>${after}</p>
+      <p class="muted">(${esc(hint)}) · ${esc(q.en)}</p></div>
+      <form class="answer" id="f"><input id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Missing verb" aria-label="Your answer"><button class="btn" type="submit">Check</button></form>
+      ${accentBar("ans")}<div id="out"></div>`;
+  } else if(mode==="trans"){
+    c.innerHTML = `<div class="prompt"><span class="label">Say it in Italian · ${SCENES[q.s].name}</span>
+      <p class="big">${esc(q.en)}</p>
+      <details><summary class="muted" style="cursor:pointer">Hint</summary><p class="muted">Use <b>${q.v}</b> (${V[q.v].en}), ${PERSON_EN[q.p]} form.</p></details></div>
+      <form class="answer" id="f"><textarea id="ans" autocapitalize="sentences" spellcheck="false" placeholder="Write the whole sentence in Italian" aria-label="Your sentence"></textarea><button class="btn" type="submit">Check</button></form>
+      ${accentBar("ans")}<div id="out"></div>`;
+    $("#ans").addEventListener("keydown", e=>{ if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); $("#f").requestSubmit(); } });
+  } else if(mode==="hear"){
+    let others = shuffle(SENT.filter(s=>s!==q && s.en!==q.en && (s.s===q.s || s.v===q.v)));
+    if(others.length<3) others = shuffle(SENT.filter(s=>s!==q && s.en!==q.en));
+    q.choices = shuffle([q, ...others.slice(0,3)]);
+    c.innerHTML = `<div class="prompt"><span class="label">What did they say? · ${SCENES[q.s].name}</span>
+      <div class="row">${spkBtn(q.it)}<p class="big" style="flex:1;min-width:0">${esc(q.it)}</p></div></div>
+      <div class="choices" id="ch">${q.choices.map((s,i)=>`<button class="choice" type="button" data-i="${i}">${esc(s.en)}</button>`).join("")}</div><div id="out"></div>`;
+    $("#ch").onclick = e=>{ const b=e.target.closest(".choice"); if(!b||answered) return; answered=true;
+      const ok = q.choices[+b.dataset.i]===q; record(q.v,q.p,ok); score(ok);
+      $("#ch").querySelectorAll(".choice").forEach((x,i)=>{ if(q.choices[i]===q) x.classList.add("right"); else if(x===b) x.classList.add("wrong"); });
+      slip(ok?"good":"bad", ok?"Capito!":"Not quite", [["Heard",markSentence(q,"b")],["Verb",`${q.form} = ${q.v}, ${PERSONS[q.p]} (${PERSON_EN[q.p]})`]], "", true); };
+  } else if(mode==="free"){
+    c.innerHTML = `<div class="prompt"><span class="label">Write freely · ${SCENES[q.s].name}</span>
+      <p class="big">${esc(q.task)}</p></div>
+      <form class="answer" id="f"><textarea id="ans" autocapitalize="sentences" spellcheck="false" placeholder="Write it in Italian, one or two sentences" aria-label="Your Italian"></textarea></form>
+      ${accentBar("ans")}
+      <div class="row"><button class="btn" type="submit" form="f" id="askBtn">Check with Claude</button><button class="btn ghost" type="button" id="modelBtn">Show a model answer</button></div>
+      <p class="claude-off" id="claudeNote" hidden></p><div id="out"></div>`;
+    $("#modelBtn").onclick = ()=>{ const o=document.createElement("div"); o.className="slip"; o.innerHTML=`<div class="line"><span>Model</span><span>${esc(q.model)}</span></div><div class="row">${spkBtn(q.model)}<span class="note">One natural way to say it. Yours can differ and still be right.</span></div>`; $("#out").prepend(o); $("#modelBtn").disabled=true; };
+    $("#ans").addEventListener("keydown", e=>{ if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); $("#f").requestSubmit(); } });
+    refreshClaudeBits();
+  }
+  const f = $("#f"); if(f) f.onsubmit = e=>{ e.preventDefault(); check(); };
+  const a = $("#ans"); if(a) a.focus({preventScroll:true});
+}
+function refreshClaudeBits(){
+  const btn=$("#askBtn"), note=$("#claudeNote");
+  if(btn && note){
+    if(claudeState==="off"){ btn.hidden=true; note.hidden=false; note.textContent="Claude feedback isn't available in this view. Write your answer, then compare it with the model answer."; }
+    else if(claudeState==="declined"){ btn.hidden=true; note.hidden=false; note.textContent="Claude access was declined for this page, so compare with the model answer instead. Reload the page to be asked again."; }
+    else { btn.hidden=false; note.hidden=true; }
+  }
+  document.querySelectorAll("[data-claude]").forEach(b=>b.hidden = claudeState!=="ready" && claudeState!=="loading");
+}
+
+function slip(kind, title, lines, note, withNext, extra=""){
+  const o = $("#out");
+  o.innerHTML = `<div class="slip"><span class="verdict v-${kind}">${title}</span>
+    ${lines.map(([k,v])=>`<div class="line"><span>${k}</span><span>${v}</span></div>`).join("")}
+    ${note?`<p class="note">${note}</p>`:""}${extra}
+    ${withNext?`<div class="row"><button class="btn" type="button" id="nextBtn">Next</button></div>`:""}</div>`;
+  const n=$("#nextBtn"); if(n){ n.onclick=next; n.focus({preventScroll:true}); }
+}
+const ACC_NOTE = t => `Correct, but watch the accent: <b>${esc(t)}</b>. Accents can change meaning (è = is, e = and).`;
+
+function check(){
+  const ans = ($("#ans")?.value||"").trim();
+  if(mode==="free") return askFree(ans);
+  if(answered) return next();
+  if(!ans) return;
+  answered = true;
+  if(mode==="conj" || mode==="gap"){
+    const r = grade(ans,[q.form]); const ok = r.g==="exact"||r.g==="accent";
+    record(q.v,q.p,ok); score(ok);
+    const v=V[q.v];
+    const lines = mode==="gap" ? [["Sentence",markSentence(q,"b")],["English",esc(q.en)]] : [["Answer",`<b>${q.form}</b>`]];
+    const why = !ok && v.irrMask[q.p] ? `This form is irregular. The regular pattern would give “${v.pred[q.p]}”.` : (!ok && v.fam==="isc" && [0,1,2,5].includes(q.p) ? "Remember the -isc- that capire-type verbs add outside noi and voi." : "");
+    slip(ok?(r.g==="accent"?"warn":"good"):"bad", ok?(r.g==="accent"?"Almost perfect":"Giusto!"):"Not quite",
+      ok?lines:[["You wrote",esc(ans)],...lines], r.g==="accent"?ACC_NOTE(q.form):esc(why), true,
+      `<div style="font-family:var(--body)">${bootGrid(v,q.p)}</div>${mode==="gap"?`<div class="row">${spkBtn(q.it)}<span class="note">Hear the full sentence</span></div>`:""}`);
+  } else if(mode==="trans"){
+    const acc = [q.it,...q.alt]; const r = grade(ans,acc);
+    const ok = r.g==="exact"||r.g==="accent";
+    const lines = [["You wrote",esc(ans)],["Answer",markSentence(q,"b")]];
+    if(ok){ record(q.v,q.p,true); score(true);
+      slip(r.g==="accent"?"warn":"good", r.g==="accent"?"Almost perfect":"Perfetto!", lines, r.g==="accent"?ACC_NOTE(r.t):"", true, `<div class="row">${spkBtn(q.it)}<span class="note">Hear it</span></div>`);
+    } else {
+      const extra = `<div class="row">
+        <button class="btn" type="button" data-claude id="askC">Ask Claude to check</button>
+        <button class="btn ghost" type="button" id="selfOk">Count mine as right</button>
+        <button class="btn ghost" type="button" id="nextBtn2">Next</button>${spkBtn(q.it)}</div><div id="cOut"></div>`;
+      slip(r.g==="close"?"warn":"bad", r.g==="close"?"Very close":"Different from our answer", lines,
+        r.g==="close" ? "Check the small differences, often a vowel at the end of the verb." : "There's often more than one right way to say something. If you think yours works, ask Claude or count it yourself.", false, extra);
+      let settled=false; const settle = ok=>{ if(settled) return; settled=true; record(q.v,q.p,ok); score(ok); };
+      $("#selfOk").onclick = ()=>{ settle(true); next(); };
+      $("#nextBtn2").onclick = ()=>{ settle(false); next(); };
+      $("#askC").onclick = ()=>askTrans(ans, settle);
+      refreshClaudeBits();
+    }
+  }
+}
+
+const TUTOR = "You are a warm, concise Italian tutor helping an English-speaking beginner who is practising the PRESENT TENSE for a trip to Italy (cafés, restaurants, shops, small talk).";
+const VERDICT = {correct:["good","Corretto!"], minor:["warn","Nearly there"], wrong:["bad","Needs a fix"]};
+function claudeErr(e){
+  if(e && e.code==="not_granted"){ claudeState="declined"; refreshClaudeBits(); return "Claude access was declined for this page."; }
+  if(e && e.code==="rate_limited") return "Too many checks in a short time. Wait a minute and try again.";
+  return "Claude couldn't check this one right now. Try again in a moment.";
+}
+async function askTrans(ans, settle){
+  const b=$("#askC"), out=$("#cOut"); b.disabled=true; out.innerHTML=`<p class="thinking">Claude is reading your sentence…</p>`;
+  const prompt = `${TUTOR}\n\nThe learner was asked to translate into Italian: "${q.en}"\nReference answer: "${q.it}"\nLearner's answer: "${ans}"\n\nDecide whether the learner's Italian is correct and natural. Accept any valid alternative: different word order, included or dropped subject pronouns, synonyms, tu or Lei or voi where the context allows. Missing or wrong accents count as "minor".\n\nReply with only JSON: {"verdict":"correct"|"minor"|"wrong","corrected":"the learner's sentence with the fewest changes needed to be correct (unchanged if already correct)","explanation":"1-3 short plain-English sentences, focusing on the verb conjugation when relevant"}`;
+  try{
+    const r = await sample.json(prompt,{modelTier:"quick"});
+    const [k,t] = VERDICT[r.verdict] || VERDICT.wrong;
+    settle(r.verdict!=="wrong");
+    out.innerHTML = `<div class="slip"><span class="verdict v-${k}">${t}</span><div class="line"><span>Claude</span><span id="cc"></span></div><p class="note" id="ce"></p><div class="row"><button class="btn" type="button" id="nextBtn">Next</button></div></div>`;
+    $("#cc").textContent = r.corrected || ans; $("#ce").textContent = r.explanation || "";
+    $("#nextBtn").onclick = next; $("#selfOk").disabled = true;
+  }catch(e){ out.innerHTML=`<p class="note">${esc(claudeErr(e))}</p>`; b.disabled=false; }
+}
+let freeCtl=null;
+async function askFree(ans){
+  if(!ans){ $("#ans").focus(); return; }
+  if(!sample) return;
+  const b=$("#askBtn"), out=$("#out"); b.disabled=true;
+  const box=document.createElement("div"); box.className="slip"; box.innerHTML=`<p class="thinking">Claude is reading your Italian…</p>`; out.innerHTML=""; out.append(box);
+  const prompt = `${TUTOR}\n\nTask the learner was given (in English): "${q.task}"\nOne model answer: "${q.model}"\nLearner's Italian: "${ans}"\n\nJudge whether the learner's Italian completes the task correctly and naturally. Any valid phrasing is fine; it does not need to match the model. Focus on verb conjugation and on anything that would confuse an Italian listener. Missing accents count as "minor". "vorrei" is acceptable.\n\nReply with only JSON: {"verdict":"correct"|"minor"|"wrong","corrected":"the learner's text with the fewest changes needed (unchanged if correct)","explanation":"2-4 short plain-English sentences of feedback","verbs":[{"form":"conjugated verb as written in corrected text","infinitive":"...","person":"io|tu|lui/lei|Lei|noi|voi|loro"}]}`;
+  try{
+    const r = await sample.json(prompt,{modelTier:"default"});
+    const [k,t] = VERDICT[r.verdict] || VERDICT.wrong;
+    if(!answered){ answered=true; score(r.verdict!=="wrong"); }
+    for(const vb of (Array.isArray(r.verbs)?r.verbs:[])){ const pi = {"io":0,"tu":1,"lui/lei":2,"Lei":2,"lui":2,"lei":2,"noi":3,"voi":4,"loro":5}[vb.person]; if(V[vb.infinitive] && pi!==undefined) record(vb.infinitive,pi,r.verdict!=="wrong"); }
+    box.innerHTML = `<span class="verdict v-${k}">${t}</span><div class="line"><span>You wrote</span><span id="fy"></span></div><div class="line"><span>Corrected</span><span id="fc"></span></div><p class="note" id="fe"></p><div class="line"><span>Verbs</span><span id="fv"></span></div><div class="row"><button class="btn" type="button" id="nextBtn">Next task</button><span id="fs"></span></div>`;
+    $("#fy").textContent = ans; $("#fc").textContent = r.corrected || ans; $("#fe").textContent = r.explanation || "";
+    $("#fv").textContent = (Array.isArray(r.verbs)&&r.verbs.length) ? r.verbs.map(v=>`${v.form} (${v.infinitive}, ${v.person})`).join(" · ") : "—";
+    $("#fs").innerHTML = spkBtn(r.corrected || ans);
+    $("#nextBtn").onclick = next;
+  }catch(e){ box.innerHTML = `<p class="note">${esc(claudeErr(e))}</p>`; }
+  finally{ b.disabled=false; }
+}
+
+/* ---------------- boot ---------------- */
+renderModes(); renderFilters(); renderTally(); next();
+show(store("tab") || "learn");
+</script>
+
+</body>
+</html>
